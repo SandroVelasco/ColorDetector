@@ -39,40 +39,32 @@ public class CorService {
         }
     }
 
-    public void getColors() {
-        this.cores.forEach(cor -> {
-            System.out.println(cor.getNome());
-        });
-    }
+    public Cor getCorQueCombina(String rgbStr) {
+        int[] rgb = this.getRGB(rgbStr);
+        Cor corProcurada = new Cor("Cor_procurada", rgb[0], rgb[1], rgb[2]);
 
-    public Cor getCorQueCombina(String rgb) {
-        rgb = rgb.replace("#", "");
-
-        int r = (int) Long.parseLong(rgb.substring(0, 2), 16);
-        int g = (int) Long.parseLong(rgb.substring(2, 4), 16);
-        int b = (int) Long.parseLong(rgb.substring(4, 6), 16);
-        Cor corProcurada = new Cor("Cor_procurada", r, g, b);
-
-        // Se saturação for igual a 0 é um range de branco, cinza e preto
+        /* Se saturação for igual a 0 é um range de branco, cinza e preto */
         if(corProcurada.getS() == 0) return getColorInRangeOfGray(corProcurada);
 
+        /*
+        * Loop entre todas as cores para encontrar a cor
+        */
         int menorValor = Integer.MAX_VALUE;
         Cor corDesejada = null;
-
-        for (Cor cor : cores) {
+        for (Cor cor : this.cores) {
             int resultado = Math.abs(
-                    Math.abs(r - cor.getR()) +
-                            Math.abs(g - cor.getG()) +
-                            Math.abs(b - cor.getB())
+                    Math.abs(rgb[0] - cor.getR()) +
+                            Math.abs(rgb[1] - cor.getG()) +
+                            Math.abs(rgb[2] - cor.getB())
             );
 
-            // Se a cor exata for encontrada, sair do laço
+            /* Se a cor exata for encontrada, sair do laço */
             if(resultado == 0) {
                 corDesejada = cor;
                 break;
             }
 
-            // Primeiro laço da interação
+            /* Primeiro laço da interação */
             if(menorValor > resultado) {
                 menorValor = resultado;
                 corDesejada = cor;
@@ -81,6 +73,16 @@ public class CorService {
         }
 
         return corDesejada;
+    }
+
+    private int[] getRGB(String rgbStr) {
+        rgbStr = rgbStr.replace("#", "");
+
+        int r = (int) Long.parseLong(rgbStr.substring(0, 2), 16);
+        int g = (int) Long.parseLong(rgbStr.substring(2, 4), 16);
+        int b = (int) Long.parseLong(rgbStr.substring(4, 6), 16);
+
+        return new int[] {r, g, b};
     }
 
     private Cor getColorInRangeOfGray(Cor cor) {
