@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CorService {
-    private Cor corDesejada;
-
     private List<Cor> cores = new ArrayList<>();
 
     public CorService() {
@@ -50,25 +48,50 @@ public class CorService {
     public Cor getCorQueCombina(String rgb) {
         rgb = rgb.replace("#", "");
 
-        Long r = Long.parseLong(rgb.substring(0, 2), 16);
-        Long g = Long.parseLong(rgb.substring(2, 4), 16);
-        Long b = Long.parseLong(rgb.substring(4, 6), 16);
+        int r = (int) Long.parseLong(rgb.substring(0, 2), 16);
+        int g = (int) Long.parseLong(rgb.substring(2, 4), 16);
+        int b = (int) Long.parseLong(rgb.substring(4, 6), 16);
+        Cor corProcurada = new Cor("Cor_procurada", r, g, b);
 
-        Long menorValor = Long.MAX_VALUE;
-        Cor corDesejada = new Cor("Indefinido", 0x00, 0x00, 0x00);
+        // Se saturação for igual a 0 é um range de branco, cinza e preto
+        if(corProcurada.getS() == 0) return getColorInRangeOfGray(corProcurada);
+
+        int menorValor = Integer.MAX_VALUE;
+        Cor corDesejada = null;
+
         for (Cor cor : cores) {
-            Long resultado = Math.abs(
+            int resultado = Math.abs(
                     Math.abs(r - cor.getR()) +
                             Math.abs(g - cor.getG()) +
                             Math.abs(b - cor.getB())
             );
 
-            if(resultado < menorValor) {
+            // Se a cor exata for encontrada, sair do laço
+            if(resultado == 0) {
+                corDesejada = cor;
+                break;
+            }
+
+            // Primeiro laço da interação
+            if(menorValor > resultado) {
                 menorValor = resultado;
                 corDesejada = cor;
             }
+
         }
 
         return corDesejada;
+    }
+
+    private Cor getColorInRangeOfGray(Cor cor) {
+        if(cor.getBr() == 100) {
+            return new Cor("Branco", 0xFF, 0xFF, 0xFF);
+        }
+
+        if(cor.getBr() <= 40) {
+            return new Cor("Preto", 0x00, 0x00, 0x00);
+        }
+
+        return new Cor("Cinza", 0xD6, 0xD6, 0xD6);
     }
 }
