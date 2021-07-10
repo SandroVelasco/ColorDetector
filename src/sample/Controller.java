@@ -9,6 +9,8 @@ import java.awt.*;
 
 public class Controller {
 
+    CorService corService = new CorService();
+
     @FXML
     private Rectangle rectangle;
 
@@ -22,6 +24,15 @@ public class Controller {
     private TextField matched;
 
     @FXML
+    private TextField redText;
+
+    @FXML
+    private TextField greenText;
+
+    @FXML
+    private TextField blueText;
+
+    @FXML
     public void initialize() {
         this.atualizarValores();
     }
@@ -30,8 +41,6 @@ public class Controller {
         Thread t1 = new Thread(() -> {
             while (true) {
                 try {
-                    CorService corService = new CorService();
-
                     int mouseX = this.getMouseX();
                     int mouseY = this.getMouseY();
 
@@ -48,6 +57,7 @@ public class Controller {
                         this.setHexCode(rgb);
                         this.setRectangleColor(color);
                         this.setMatched(cor);
+                        this.setRedGreenAndBlueTexts(rgb);
                     });
 
                     Thread.sleep(100);
@@ -87,5 +97,13 @@ public class Controller {
         String rgb = "#" + String.format("%02X", r) + String.format("%02X", g) + String.format("%02X", b);
 
         matched.setText(rgb);
+    }
+
+    private void setRedGreenAndBlueTexts(String rgbStr) {
+        int[] rgb = this.corService.getRGB(rgbStr);
+
+        redText.setText("" + rgb[0]);
+        greenText.setText("" + rgb[1]);
+        blueText.setText("" + rgb[2]);
     }
 }

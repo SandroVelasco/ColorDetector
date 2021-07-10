@@ -75,7 +75,7 @@ public class CorService {
         return corDesejada;
     }
 
-    private int[] getRGB(String rgbStr) {
+    public int[] getRGB(String rgbStr) {
         rgbStr = rgbStr.replace("#", "");
 
         int r = (int) Long.parseLong(rgbStr.substring(0, 2), 16);
