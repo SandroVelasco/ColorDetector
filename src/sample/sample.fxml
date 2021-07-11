@@ -6,22 +6,22 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="129.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="139.0" prefWidth="291.0" style="-fx-background-color: #595959;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
       <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="82.0" layoutX="14.0" layoutY="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="99.0" />
       <TextField fx:id="nome" disable="true" editable="false" layoutX="187.0" layoutY="12.0" prefHeight="25.0" prefWidth="90.0" />
-      <Label layoutX="128.0" layoutY="16.0" text="Nome:" />
-      <Label layoutX="128.0" layoutY="45.0" text="Hex code:" />
+      <Label layoutX="128.0" layoutY="16.0" text="Nome:" textFill="#cdcdcd" />
+      <Label layoutX="128.0" layoutY="45.0" text="Hex code:" textFill="#cdcdcd" />
       <TextField fx:id="hexCode" disable="true" editable="false" layoutX="187.0" layoutY="41.0" prefHeight="25.0" prefWidth="90.0" />
-      <Label layoutX="128.0" layoutY="74.0" text="Matched:" />
+      <Label layoutX="128.0" layoutY="74.0" text="Matched:" textFill="#cdcdcd" />
       <TextField fx:id="matched" disable="true" editable="false" layoutX="187.0" layoutY="70.0" prefHeight="25.0" prefWidth="90.0" />
       <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="101.0" prefHeight="31.0" prefWidth="264.0" spacing="5.0">
          <children>
-            <Label text="Red:" />
+            <Label text="Red:" textFill="#cdcdcd" />
             <TextField fx:id="redText" disable="true" prefHeight="25.0" prefWidth="51.0" />
-            <Label text="Green:" />
+            <Label text="Green:" textFill="#cdcdcd" />
             <TextField fx:id="greenText" disable="true" prefHeight="25.0" prefWidth="51.0" />
-            <Label text="Blue:" />
+            <Label text="Blue:" textFill="#cdcdcd" />
             <TextField fx:id="blueText" disable="true" prefHeight="25.0" prefWidth="51.0" />
          </children>
       </HBox>
